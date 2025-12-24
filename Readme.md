@@ -24,6 +24,9 @@ It is designed to handle real-world speech ambiguity in Telugu.
 ---
 
 ##  Architecture
+
+![Agent Architecture](docs/architecture.png)
+
 **Core Components:**
 - Speech-to-Text: Google STT
 - Agent Core:
@@ -37,6 +40,7 @@ It is designed to handle real-world speech ambiguity in Telugu.
   2. pyttsx3 (offline)
   3. Text fallback
 
+
 See `docs/architecture.png` for the system diagram.
 
 ---
@@ -47,5 +51,6 @@ See `docs/architecture.png` for the system diagram.
 ```bash
 git clone https://github.com/ppspoornesh/Agentic_voice_AI.git
 cd Agentic_voice_AI
+
 
 
