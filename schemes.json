@@ -1,0 +1,95 @@
+[
+  {
+    "name": "ఉజ్జ్వల యోజన (Ujjwala)",
+    "description": "పేద మహిళలకు ఉచిత LPG గ్యాస్ కనెక్షన్.",
+    "eligibility_text": "పేద కుటుంబాలకు చెందిన మహిళలు మాత్రమే అర్హులు.",
+    "rules": {
+      "gender": "female",
+      "max_income": 100000
+    },
+    "application_link": "pmuy.gov.in"
+  },
+  {
+    "name": "ఆయుష్మాన్ భారత్ (Ayushman Bharat)",
+    "description": "పేద కుటుంబాలకు ₹5 లక్షల వరకు ఉచిత ఆరోగ్య బీమా.",
+    "eligibility_text": "తక్కువ ఆదాయం కలిగిన కుటుంబాలకు ఆరోగ్య రక్షణ అందిస్తుంది.",
+    "rules": {
+      "max_income": 200000,
+      "max_family_size": 5
+    },
+    "application_link": "pmjay.gov.in"
+  },
+  {
+    "name": "ప్రధాన మంత్రి కిసాన్ సమ్మాన్ నిధి (PM Kisan)",
+    "description": "రైతులకు సంవత్సరానికి ₹6000 ఆర్థిక సహాయం.",
+    "eligibility_text": "చిన్న లేదా సరిహద్దు రైతులు అర్హులు.",
+    "rules": {
+      "min_age": 18,
+      "max_income": 200000
+    },
+    "application_link": "pmkisan.gov.in"
+  },
+  {
+    "name": "మనరేగా (MNREGA)",
+    "description": "గ్రామీణ ప్రాంతాల్లో సంవత్సరానికి 100 రోజుల ఉపాధి హామీ.",
+    "eligibility_text": "గ్రామీణ ప్రాంతానికి చెందిన వయోజనులు అర్హులు.",
+    "rules": {
+      "min_age": 18
+    },
+    "application_link": "nrega.nic.in"
+  },
+  {
+    "name": "ప్రధాన మంత్రి ఆవాస్ యోజన (PMAY)",
+    "description": "పేద కుటుంబాలకు తక్కువ ఖర్చుతో ఇల్లు.",
+    "eligibility_text": "తక్కువ ఆదాయం కలిగిన కుటుంబాలకు గృహ సాయం అందిస్తుంది.",
+    "rules": {
+      "max_income": 300000
+    },
+    "application_link": "pmaymis.gov.in"
+  },
+  {
+    "name": "సుకన్య సమృద్ధి యోజన (Sukanya Samriddhi)",
+    "description": "బాలికల విద్య మరియు భవిష్యత్ కోసం పొదుపు పథకం.",
+    "eligibility_text": "బాలికల కుటుంబాలకు మాత్రమే ఈ పథకం వర్తిస్తుంది.",
+    "rules": {
+      "max_family_size": 5
+    },
+    "application_link": "nsdl.co.in"
+  },
+  {
+    "name": "అటల్ పెన్షన్ యోజన (Atal Pension Yojana)",
+    "description": "అసంఘటిత రంగ కార్మికులకు పెన్షన్ పథకం.",
+    "eligibility_text": "18 నుండి 40 సంవత్సరాల మధ్య వయస్సు ఉన్నవారు అర్హులు.",
+    "rules": {
+      "min_age": 18,
+      "max_income": 300000
+    },
+    "application_link": "npscra.nsdl.co.in"
+  },
+  {
+    "name": "జన్ ధన్ యోజన (Jan Dhan Yojana)",
+    "description": "ప్రతి భారతీయుడికి బ్యాంక్ ఖాతా సౌకర్యం.",
+    "eligibility_text": "ఏ భారతీయ పౌరుడైనా ఈ పథకానికి అర్హుడు.",
+    "rules": {},
+    "application_link": "pmjdy.gov.in"
+  },
+  {
+    "name": "ముద్రా యోజన (MUDRA Loan)",
+    "description": "చిన్న వ్యాపారాలకు రుణ సదుపాయం.",
+    "eligibility_text": "తక్కువ ఆదాయం కలిగిన చిన్న వ్యాపారులు అర్హులు.",
+    "rules": {
+      "max_income": 1000000
+    },
+    "application_link": "mudra.org.in"
+  },
+  {
+    "name": "నైపుణ్య అభివృద్ధి యోజన (Skill India)",
+    "description": "యువతకు ఉచిత నైపుణ్య శిక్షణ.",
+    "eligibility_text": "15 నుండి 45 సంవత్సరాల మధ్య వయస్సు ఉన్న నిరుద్యోగులు అర్హులు.",
+    "rules": {
+      "min_age": 15,
+      "max_income": 300000
+    },
+    "application_link": "skillindia.gov.in"
+  }
+]

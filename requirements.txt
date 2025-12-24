@@ -1,0 +1,5 @@
+speechrecognition
+pydub
+gtts
+pyttsx3
+groq
