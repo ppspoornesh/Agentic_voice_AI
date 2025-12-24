@@ -6,7 +6,7 @@ Repository: Agentic_voice_AI
 
 ---
 
-## 📌 Overview
+##  Overview
 The system supports multi-turn voice interaction, deterministic eligibility checking, memory-based reasoning, and robust failure recovery.  
 It is designed to handle real-world speech ambiguity in Telugu.
 
@@ -23,7 +23,7 @@ It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-## 🧠 Architecture
+##  Architecture
 **Core Components:**
 - Speech-to-Text: Google STT
 - Agent Core:
@@ -43,7 +43,8 @@ See `docs/architecture.png` for the system diagram.
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Clone Repository
+###  Clone Repository
 ```bash
 git clone https://github.com/ppspoornesh/Agentic_voice_AI.git
 cd Agentic_voice_AI
+
