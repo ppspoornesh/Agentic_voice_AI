@@ -6,13 +6,13 @@ Repository: telugu_voice_agent_schemes
 
 ---
 
-## 📌 Overview
+##  Overview
 The system supports multi-turn voice interaction, deterministic eligibility checking, memory-based reasoning, and robust failure recovery.  
 It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-## 🎯 Key Features
+##  Key Features
 - Telugu voice interaction (Speech-to-Text + Text-to-Speech)
 - Agentic planning with explicit state transitions
 - SQLite-based conversational memory
@@ -23,7 +23,7 @@ It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-## 🧠 Architecture
+##  Architecture
 **Core Components:**
 - Speech-to-Text: Google STT
 - Agent Core:
@@ -41,9 +41,10 @@ See `docs/architecture.png` for the system diagram.
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
-### 1️⃣ Clone Repository
+###  Clone Repository
 ```bash
 git clone https://github.com/<your-username>/telugu_voice_agent_schemes.git
 cd telugu_voice_agent_schemes
+
