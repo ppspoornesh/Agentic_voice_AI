@@ -1,18 +1,18 @@
-# Telugu Voice Agent for Government Schemes
+# Agentic Voice AI for Government Schemes
 
 This repository contains an agentic, voice-first AI assistant that helps users identify and apply for eligible Indian government schemes using Telugu speech.
 
-Repository: telugu_voice_agent_schemes
+Repository: Agentic_voice_AI
 
 ---
 
-##  Overview
+## 📌 Overview
 The system supports multi-turn voice interaction, deterministic eligibility checking, memory-based reasoning, and robust failure recovery.  
 It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-##  Key Features
+## 🎯 Key Features
 - Telugu voice interaction (Speech-to-Text + Text-to-Speech)
 - Agentic planning with explicit state transitions
 - SQLite-based conversational memory
@@ -23,7 +23,7 @@ It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-##  Architecture
+## 🧠 Architecture
 **Core Components:**
 - Speech-to-Text: Google STT
 - Agent Core:
@@ -41,10 +41,9 @@ See `docs/architecture.png` for the system diagram.
 
 ---
 
-##  Setup Instructions
+## ⚙️ Setup Instructions
 
-###  Clone Repository
+### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/<your-username>/telugu_voice_agent_schemes.git
-cd telugu_voice_agent_schemes
-
+git clone https://github.com/ppspoornesh/Agentic_voice_AI.git
+cd Agentic_voice_AI
