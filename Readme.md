@@ -12,7 +12,7 @@ It is designed to handle real-world speech ambiguity in Telugu.
 
 ---
 
-## 🎯 Key Features
+##  Key Features
 - Telugu voice interaction (Speech-to-Text + Text-to-Speech)
 - Agentic planning with explicit state transitions
 - SQLite-based conversational memory
@@ -47,4 +47,5 @@ See `docs/architecture.png` for the system diagram.
 ```bash
 git clone https://github.com/ppspoornesh/Agentic_voice_AI.git
 cd Agentic_voice_AI
+
 
