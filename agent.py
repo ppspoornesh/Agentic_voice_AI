@@ -6,6 +6,8 @@ from planner import plan_next_action
 from tools import retrieve_schemes, check_eligibility, mock_apply
 from parsers import parse_gender, parse_house_type
 
+
+# Questions asked to the user for collecting required details
 QUESTIONS = {
     "age": "మీ వయస్సు చెప్పండి.",
     "income": "మీ కుటుంబ వార్షిక ఆదాయం చెప్పండి.",
@@ -14,6 +16,7 @@ QUESTIONS = {
     "house_type": "మీ ఇల్లు పక్కా లేదా కచ్చా?"
 }
 
+# Common confirmation words (Telugu + English + phonetic)
 CONFIRM_WORDS = [
     "అవును", "అవునండి",
     "సరే", "సరేండి",
@@ -21,28 +24,47 @@ CONFIRM_WORDS = [
     "sare", "sarey", "sari", "sare andi"
 ]
 
+# Words indicating rejection or correction
 NEGATIVE_WORDS = [
     "కాదు", "కాదండి",
     "సరి కాదు", "సరే కాదు",
     "no", "nope", "cancel"
 ]
 
+
 def is_confirmation(text):
+    """
+    Checks whether the user's response is a confirmation or not.
+    Used after reading back parsed values.
+    """
     if not text:
         return False
+
     t = text.lower().strip()
+
+    # Negative response has higher priority
     if any(n in t for n in NEGATIVE_WORDS):
         return False
+
     if any(p in t for p in CONFIRM_WORDS):
         return True
+
     return False
 
 
 def log_state(tag, msg=""):
+    """
+    Simple logger to track agent flow during debugging/demo.
+    """
     print(f"[{tag}] {msg}")
 
 
 def run_agent():
+    """
+    Main control loop of the voice-based agent.
+    Handles data collection, validation, eligibility check,
+    and mock application flow.
+    """
     session_id = str(uuid.uuid4())
     last_error = None
     last_key = None
@@ -50,17 +72,23 @@ def run_agent():
     speak_text("నమస్కారం! ప్రభుత్వ పథకాల కోసం నేను మీకు సహాయం చేస్తాను.")
 
     while True:
+        # Load all previously collected information for this session
         memory = memory_snapshot(session_id)
+
+        # Planner decides what to do next based on memory and errors
         action, key = plan_next_action(memory, last_error, last_key)
 
-        # ================= COLLECT =================
+        # ===================== DATA COLLECTION =====================
         if action == "COLLECT":
             last_key = key
             log_state("COLLECTING", key)
+
             speak_text(QUESTIONS[key])
             speak_text("వింటున్నాను…")
 
             reply = get_voice_input()
+
+            # Handle speech recognition failure
             if not reply:
                 log_state("ERROR", "STT failed")
                 last_error = "STT_ERROR"
@@ -68,20 +96,20 @@ def run_agent():
 
             log_state("RAW_INPUT", reply)
 
-            # ---------- PARSING ----------
+            # ----------- Parsing numeric fields -----------
             if key in ["age", "income", "family_size"]:
                 value = extract_number(reply)
 
-                # 🔥 UPDATE-4: FAMILY SIZE NEVER FAILS
+                # Extra handling for family size due to frequent STT issues
                 if value is None and key == "family_size":
                     r = reply.lower().strip()
 
                     FAMILY_SIZE_SOUND_MAP = {
-                        # Telugu
+                        # Telugu partial sounds
                         "ఒ": 1, "రె": 2, "మూ": 3, "న": 4,
                         "ఐ": 5, "ఆ": 6, "ఏ": 7, "ఎ": 8, "తొ": 9,
 
-                        # Phonetic / English STT
+                        # English / phonetic STT outputs
                         "oka": 1, "one": 1,
                         "ren": 2, "two": 2,
                         "moo": 3, "three": 3,
@@ -96,10 +124,7 @@ def run_agent():
                     for k, v in FAMILY_SIZE_SOUND_MAP.items():
                         if r.startswith(k):
                             value = v
-                            log_state(
-                                "HEURISTIC",
-                                f"family_size inferred as {v} from sound '{k}'"
-                            )
+                            log_state("HEURISTIC", f"family_size inferred as {v}")
                             break
 
                 if value is None:
@@ -108,7 +133,7 @@ def run_agent():
                     last_error = "PARSE_ERROR"
                     continue
 
-                # Income normalization (unchanged)
+                # Normalize income values (lakhs / thousands)
                 if key == "income":
                     r = reply.lower()
                     if "లక్ష" in r or "laksh" in r:
@@ -118,6 +143,7 @@ def run_agent():
                     else:
                         value = value * 100000 if value < 20 else value * 1000
 
+            # ----------- Parsing categorical fields -----------
             elif key == "gender":
                 value = parse_gender(reply)
                 if not value:
@@ -132,7 +158,7 @@ def run_agent():
 
             log_state("PARSED", f"{key}={value}")
 
-            # ---------- CONFIRM ----------
+            # ----------- Confirmation step -----------
             speak_text(f"{value} నమోదు చేస్తున్నాను. సరేనా?")
             confirm = get_voice_input()
 
@@ -141,6 +167,7 @@ def run_agent():
                 speak_text("సరే. మళ్లీ చెప్పండి.")
                 continue
 
+            # Check if user contradicts previously stored information
             contradiction = check_contradiction(session_id, key, value)
             if contradiction:
                 speak_text(contradiction)
@@ -152,7 +179,7 @@ def run_agent():
             last_error = None
             continue
 
-        # ================= SEARCH =================
+        # ===================== SCHEME SEARCH =====================
         if action == "SEARCH":
             speak_text("మీ వివరాల ఆధారంగా పథకాలను పరిశీలిస్తున్నాను.")
             schemes = retrieve_schemes(None)
