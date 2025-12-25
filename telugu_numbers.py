@@ -1,6 +1,12 @@
 import re
 
+
 def normalize_stt_noise(text):
+    """
+    Normalizes common speech-to-text errors.
+    Handles broken words, mixed English outputs,
+    and common Telugu number variations.
+    """
     if not text:
         return text
 
@@ -11,7 +17,7 @@ def normalize_stt_noise(text):
         "lakhs": "lakshalu",
         "లక్షలు": "లక్ష",
         "లక్ష": "లక్ష",
-        "ల": "లక్ష",          # broken STT syllable
+        "ల": "లక్ష",        # STT sometimes outputs partial syllables
         "వేల": "వెయ్యి"
     }
 
@@ -21,6 +27,7 @@ def normalize_stt_noise(text):
     return text.lower().strip()
 
 
+# Telugu number words and their numeric values
 UNITS = {
     "సున్నా": 0,
     "ఒక": 1, "ఒకటి": 1, "ఒకరు": 1,
@@ -33,7 +40,7 @@ UNITS = {
     "ఎనిమిది": 8, "ఎనిమిదుగురు": 8,
     "తొమ్మిది": 9, "తొమ్మిదుగురు": 9,
 
-    # phonetic (STT English output)
+    # Common phonetic outputs from English-based STT
     "okati": 1,
     "rendu": 2, "iddaru": 2,
     "moodu": 3, "mugguru": 3,
@@ -41,6 +48,7 @@ UNITS = {
     "aidu": 5, "aiduguru": 5
 }
 
+# Multipliers used in spoken numbers
 MULTIPLIERS = {
     "వంద": 100,
     "వెయ్యి": 1000,
@@ -52,12 +60,16 @@ MULTIPLIERS = {
 
 
 def extract_number(text):
+    """
+    Extracts a numeric value from Telugu speech input.
+    Supports digits, word-based numbers, and common STT errors.
+    """
     if not text:
         return None
 
     text = normalize_stt_noise(text)
 
-    # 1️⃣ Digits always win
+    # If digits are present, directly use them
     digit = re.search(r"\d+", text)
     if digit:
         return int(digit.group())
@@ -68,7 +80,7 @@ def extract_number(text):
     current = 0
     found = False
 
-    # ---------- Exact token matching ----------
+    # Parse tokens one by one to build the number
     for tok in tokens:
         tok = tok.strip()
 
@@ -77,8 +89,9 @@ def extract_number(text):
             found = True
 
         elif tok in MULTIPLIERS:
+            # Handle cases like "లక్ష" without explicit "one"
             if current == 0:
-                current = 1   # implicit "one"
+                current = 1
             current *= MULTIPLIERS[tok]
             total += current
             current = 0
@@ -86,7 +99,7 @@ def extract_number(text):
 
     total += current
 
-    # ---------- 🔥 Fallback: stem-based matching (Telugu suffixes) ----------
+    # Fallback check for partial word matches
     if not found:
         for k, v in UNITS.items():
             if k in text:
