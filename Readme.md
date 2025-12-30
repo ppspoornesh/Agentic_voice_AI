@@ -45,12 +45,38 @@ See `docs/architecture.png` for the system diagram.
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
-###  Clone Repository
+## How to Run (Any PC – Windows / macOS / Linux)
+
 ```bash
+# 1. Clone the project
 git clone https://github.com/ppspoornesh/Agentic_voice_AI.git
 cd Agentic_voice_AI
 
+# 2. Create a fresh virtual environment
+python -m venv .venv
+
+# Activate the environment
+# Windows
+.\.venv\Scripts\activate
+
+# macOS / Linux
+# source .venv/bin/activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set environment variable for LLM (Groq)
+# Windows (PowerShell)
+setx GROQ_API_KEY "your_groq_api_key_here"
+
+# macOS / Linux
+# export GROQ_API_KEY="your_groq_api_key_here"
+
+# Restart terminal after setting the variable
+
+# 5. Run the voice-based agent
+python agent.py
 
 
