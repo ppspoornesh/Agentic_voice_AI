@@ -1,6 +1,6 @@
 # Evaluation Transcript:
 
-This transcript simulates 5 interactions using mocked voice inputs (via `test_agent.py` extensions) and dry-runs of `run_agent()`. Each shows Telugu STT/TTS, agent states, tool calls, memory ops, and recovery. Tested on Python 3.12 with sample `schemes.json` (3 schemes: PM Awas [female, <2L income], Rythu Bandhu [male farmers, age 18–60], Widow Pension [female, >50 age]).
+This transcript simulates 5 interactions using mocked voice inputs (via `test_agent.py` extensions) and dry-runs of `run_agent()`. Each shows Telugu STT/TTS, agent states, tool calls, memory ops, and recovery. Tested with sample `schemes.json` (3 schemes: PM Awas [female, <2L income], Rythu Bandhu [male farmers, age 18–60], Widow Pension [female, >50 age]).
 
 | # | Type | Context | Transcript Excerpt | Key Behaviors | Outcome |
 |---|------|---------|-------------------|---------------|---------|
@@ -9,5 +9,6 @@ This transcript simulates 5 interactions using mocked voice inputs (via `test_ag
 | 3 | Edge: STT Failure Recovery | Mid-collect (after age); Noisy input for family_size. | Agent: కుటుంబ సభ్యులు...? Input: None (timeout) → STT_ERROR. Recovery: "స్పష్టంగా... మళ్లీ." Retry: "ఆరుగురు" (garbled "aaruguru") → Heuristic:6. Confirm: "సరే." Save. | - Handling: 2 retries; sound_map fallback.<br>- State: RECOVERING→COLLECT. | PASS. Resolves in 2 turns; mem clean. |
 | 4 | Edge: Memory Contradiction | Reuse session; Prior age=25, now input 35 for gender collect. | Parse age:35. Contradict: Old=25. Agent: "ముందుగా 25... నిర్ధారించాలా?" Input: "కాదు" → Reject, reprompt. Retry: "25" → Matches, overwrite. | - Memory: check_contradiction() + confirm loop.<br>- Multi-turn persistence. | PASS. Avoids bad data; user choice. |
 | 5 | Failure: Tool Error | SEARCH; Simulate JSON load fail (e.g., bad file). | Plan: SEARCH. Tools: retrieve→Exception. Fallback: "సేవ అందుబాటులో లేదు." Recovery: Loop to IDLE, reprompt from partial mem. Input: "మళ్లీ" → Restart. | - Handling: Try/except + LLM retries (if used).<br>- State: ERROR→RECOVERING. | PASS. No crash; partial data safe. |
+
 
 **Notes:** All in Telugu (enforce_telugu() active). Voice: gTTS te-lang, pyttsx3 fallback. No English in user-facing. Edge coverage: 80% (add no-internet sim for prod).
