@@ -3,3 +3,4 @@ pydub
 gtts
 pyttsx3
 groq
+pyaudio
