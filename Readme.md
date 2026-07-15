@@ -1,4 +1,4 @@
-# Agentic Voice AI for Government Schemes
+# Agentic Voice AI Assistant for Government Schemes
 
 This repository contains an agentic, voice-first AI assistant that helps users identify and apply for eligible Indian government schemes using Telugu speech.
 
